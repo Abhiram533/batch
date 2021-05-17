@@ -10,10 +10,10 @@ import time
 import sys
 
 
-execution_Id=response_data=requests.get(http://localhost:9393/tasks/executions/1).json()
+execution_Id=response_data=requests.post("http://localhost:9393/tasks/executions?name=timestamp").json()
 
 status=False
-get_Status_Url="http://localhost:9393/tasks/executions/1"
+get_Status_Url="http://localhost:9393/tasks/executions/"+str(execution_Id)
 while status==False:
     response_data=requests.get(get_Status_Url).json()
     if response_data['taskExecutionStatus']=='COMPLETE':
