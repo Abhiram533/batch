@@ -1,0 +1,29 @@
+# -*- coding: utf-8 -*-
+"""
+Created on Mon May 17 20:03:54 2021
+
+@author: abhir
+"""
+
+import requests
+import time
+import sys
+
+
+execution_Id=response_data=requests.get(http://localhost:9393/tasks/executions/1).json()
+
+status=False
+get_Status_Url="http://localhost:9393/tasks/executions/1"
+while status==False:
+    response_data=requests.get(get_Status_Url).json()
+    if response_data['taskExecutionStatus']=='COMPLETE':
+        print("task completed successfully")
+        sys.exit(0)
+    if response_data['taskExecutionStatus']=='FAILED' or response_data['taskExecutionStatus']=='ERROR':
+        print("task failed ")
+        sys.exit(1)
+    if response_data['taskExecutionStatus']=='UNKNOWN':
+        print("task is still runninf")
+        time.sleep(30)
+        status=False
+    
